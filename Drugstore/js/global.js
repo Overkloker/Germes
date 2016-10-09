@@ -207,23 +207,23 @@ $(document).ready(function () {
     changeText.text(newText);
   });
 
-  $(".js-add button").click(function () {
-    var plus = $(this).hasClass("js-plus-num"),
-      minus = $(this).hasClass("js-minus-num"),
-      input = $(this).closest(".js-add").find(".js-input-num"),
-      inputVal = parseInt(input.val());
-
-    if (plus) {
-      input.val(inputVal + 1)
-    }
-    if (inputVal > 0) {
-      if (minus) {
-        input.val(inputVal - 1)
-      }
-    }
-
-
-  });
+  // $(".js-add button").click(function () {
+  //   var plus = $(this).hasClass("js-plus-num"),
+  //     minus = $(this).hasClass("js-minus-num"),
+  //     input = $(this).closest(".js-add").find(".js-input-num"),
+  //     inputVal = parseInt(input.val());
+  //
+  //   if (plus) {
+  //     input.val(inputVal + 1)
+  //   }
+  //   if (inputVal > 0) {
+  //     if (minus) {
+  //       input.val(inputVal - 1)
+  //     }
+  //   }
+  //
+  //
+  // });
 
 
   var gallery = function () {
