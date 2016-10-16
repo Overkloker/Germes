@@ -1,3 +1,4 @@
+// таймер с очисткой для корзины
 $('#code').text(localStorage.getItem("code"));
 
 var c = 10;

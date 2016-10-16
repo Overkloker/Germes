@@ -1,12 +1,16 @@
+// берем данные с LinkStyle
 var basket = JSON.parse(localStorage.getItem('basket')) || [];
 
+// если страница поиска то при клике на купить считываем id и price.
 if (location.href.indexOf("search") != -1) {
   $('.btn-in-basket').click(function () {
     var id = $(this).parents('.e-square-item').attr('data-id-goods');
     var price = $(this).parents('.e-square-item').find('.e-card-short-price').text();
 
+    // записываем данные в ls
     basket = JSON.parse(localStorage.getItem('basket')) || [];
 
+    // проверяем есть ли такой товар в ls
     var pushItem = true;
     basket.forEach(function (item, i) {
       if (item.id == id) {
@@ -14,6 +18,7 @@ if (location.href.indexOf("search") != -1) {
       }
     });
 
+    // если такого товара еще нет в ls то добавляем его
     if (pushItem) {
       console.log("ok");
       basket.push({
@@ -32,6 +37,7 @@ if (location.href.indexOf("search") != -1) {
   });
 }
 
+// если мы на странице товара
 if (location.href.indexOf("card") != -1) {
   $('.btn-in-basket').click(function () {
     var id = $(this).parents('.b-card-short-info').attr('data-id-goods');
@@ -53,18 +59,21 @@ if (location.href.indexOf("card") != -1) {
   });
 }
 
-
+// кнопка +
 var basketCalc = function () {
   var total = 0;
   basket.forEach(function (item) {
     total += parseInt(item.price.match(/\d*/)[0], 10)
   });
+
+  // динамическое обновления цены в корзине
   document.getElementById("basket-price").innerHTML = total + '<span class="e-cart-currency">грн</span>';
 
   document.getElementById("count-goods").innerHTML = "(" + basket.length + " товаров)";
 };
 basketCalc();
 
+// переход на корзину (пустую или полную)
 $('.b-cart-footer').click(function () {
   if (basket.length != 0) {
     window.location.href = "basket-goods.html"
@@ -76,6 +85,7 @@ $('.b-cart-footer').click(function () {
 
 
 //----------------------------------------------------------------------------------------------------
+// удаления товара с корзины
 if (location.href.indexOf("basket-goods") != -1) {
   $(document).on('click', '.remove-goods-btn', function () {
     var b = basket;
@@ -97,6 +107,7 @@ if (location.href.indexOf("basket-goods") != -1) {
   });
   getGoods();
 
+  // проверка есть ли товар на складе
   function getGoods() {
     $.ajax({
       // method: "POST",
@@ -110,6 +121,7 @@ if (location.href.indexOf("basket-goods") != -1) {
     });
   }
 
+  // товар в корзине
   function writeGoods() {
     goods.forEach(function (item) {
       var html = ' <li class="e-square-item col-lg-12" data-id-goods="' + item.id + '">'
@@ -159,6 +171,8 @@ if (location.href.indexOf("basket-goods") != -1) {
     });
   }
 }
+
+// калькулятор на странице поиска
 if (location.href.indexOf("search") != -1) {
   $(document).on('click', '.js-plus-num', function () {
     var input = $(this).parents('.e-square-item').find('.b-input');
@@ -208,6 +222,7 @@ if (location.href.indexOf("search") != -1) {
   });
 }
 
+// калькулятор на странице карточки товара
 if (location.href.indexOf("card") != -1) {
   $(document).on('click', '.js-plus-num', function () {
     var input = $(this).parents('.b-card-short-info').find('.b-input');
@@ -257,7 +272,7 @@ if (location.href.indexOf("card") != -1) {
   });
 }
 
-
+// отправка корзины
 $('#sendBasket').click(function () {
   var localBasket = JSON.parse(localStorage.getItem("basket"));
   console.log(localBasket);
